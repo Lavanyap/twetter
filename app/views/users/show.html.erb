@@ -5,6 +5,7 @@
 
   <div class="panel panel-default col-md-8 text-left">
     <div class="pull-left">
+    <%= image_tag @user.gravatar_url %>
      <h3> <%= @user.name %></h3>
      <h5> <%= @user.email %><br></h5>
      Member since: <%= @user.created_at %><br>

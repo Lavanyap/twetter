@@ -35,13 +35,14 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+#gem 'digest/md5', require: true
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # Use Devise for authentication: https://github.com/plataformatec/devise#getting-started
 gem 'devise'
-
+gem 'gravtastic'
 group :development, :test do
   # Use RSpec for testing: https://github.com/rspec/rspec-rails
   gem 'rspec-rails', '~> 2.0'

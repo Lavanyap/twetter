@@ -8,7 +8,10 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :username, :presence => true, :uniqueness => true
-
+  include Gravtastic
+  gravtastic  :filetype => :png,
+             :size => 30
+  
   # Scope method to get all users except the one passed.
   #
   def self.all_except(user)

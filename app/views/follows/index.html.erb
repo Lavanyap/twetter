@@ -13,7 +13,9 @@
     <ol class="list-unstyled">
       <% @users.each do |user| -%>
       <li>
-        <%= content_tag :strong, user.name, :class => 'pull-left text-middle' %>
+        <%= image_tag user.gravatar_url %>
+        <%= content_tag :strong, user.name %> 
+        
         <% a=link_to "@"+user.username,'http://localhost:3000/users/' + user.username %>
         <%= content_tag :span, a, :class => 'text-muted pad-10 text-middle' %>
         <%= follow_link(user) %>
