@@ -13,7 +13,8 @@
       <% @twets.each do |twet| -%>
       <li>
         <%= content_tag :strong, twet.user.name, :class => 'pull-left text-middle' %>
-        <%= content_tag :small, "@"+twet.user.username, :class => 'text-muted pad-10 text-middle' %>
+        <% a =link_to "@"+twet.user.username,'http://localhost:3000/users/' +twet.user.username %>
+        <%= content_tag :small,a, :class => 'text-muted pad-10 text-middle' %>
         <%= content_tag :small, twet.created_at.strftime("%b %-d"), :class => 'text-muted text-middle pull-right' %>
         <div class="clearfix"></div>
         <%= content_tag :p, twet.content %>

@@ -1,0 +1,22 @@
+<div class="clearfix top-space small"></div>
+<div class="row">
+
+  <%= render :partial => 'shared/left_nav' %>
+
+  <div class="panel panel-default col-md-8 text-left">
+    <div class="pull-left">
+     <h3> <%= @user.name %></h3>
+     <h5> <%= @user.email %><br></h5>
+     Member since: <%= @user.created_at %><br>
+     Number of twets: <%= @user.twets.count %><br>
+     Number of followers <%= @user.follows.count %><br>
+     Following: <%= Follow.where(:following_id => current_user.id).count %><br><br>
+	<% if current_user.id == @user.id %>
+	
+		<button type="button" class="btn btn-primary">Edit Profile</button>
+    
+    <% end %>
+  		
+      </div>
+  </div>
+</div>
