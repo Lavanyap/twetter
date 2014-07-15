@@ -6,7 +6,8 @@
     </li>
     <li>
       <% user_name ='@'+current_user.username %>
-      <%= content_tag :small, nav_item(user_name,'http://localhost:3000/users/'+ current_user.username) %>
+      <%= content_tag :small, nav_item(user_name,"/users/" +current_user.username)%>
+       
     </li>
     <li>
       <table class="table table-bordered stats">

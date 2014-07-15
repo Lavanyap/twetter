@@ -15,7 +15,7 @@
         <%= image_tag twet.user.gravatar_url %>
         <%= content_tag :strong, twet.user.name %>
         
-        <% a =link_to "@"+twet.user.username,'http://localhost:3000/users/' +twet.user.username %>
+        <% a =link_to "@"+twet.user.username,'/users/' +twet.user.username %>
         <%= content_tag :small,a, :class => 'text-muted pad-10 text-middle' %>
         <%= content_tag :small, twet.created_at.strftime("%b %-d"), :class => 'text-muted text-middle pull-right' %>
         <div class="clearfix"></div>
