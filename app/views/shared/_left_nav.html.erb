@@ -6,7 +6,7 @@
     </li>
     <li>
       <% user_name ='@'+current_user.username %>
-      <%= content_tag :small, nav_item(user_name,"/users/" +current_user.username)%>
+      <%= content_tag :small, nav_item(user_name,user_path(current_user.username ))%>
        
     </li>
     <li>

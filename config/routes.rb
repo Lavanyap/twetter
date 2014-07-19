@@ -4,11 +4,13 @@ Twetter::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   authenticated :user do
+    # route the /name to profiles
+     #get ':id', to: 'users#show'
     resources :follows, :except => [:new, :edit, :show, :update]
     resources :twets, :except => [:new, :edit, :show, :update]
     resources :users, :except => [:new, :edit, :update]
     #resources :users;
-    #get ':username', to: 'users#show'
+  
 
     #match ":username/edit", :to => "users#edit", :as => "edit_user", :via => :get
    # match ":username", :to => "users#show", :as => "user", :via => :get
