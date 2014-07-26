@@ -37,7 +37,30 @@ class TwetsController < ApplicationController
     end
   end
 
+  def destroy
+
+     
+    if twet.exists? 
+     twet.destroy_all
+    else
+      flash[:error] = "We're sorry. We could not find that retwet."
+    end
+    url_return
+  end
+
   private
+
+  def twet
+    @twet ||= current_user.twets.where(:original_twet_id => params[:id])
+  end
+
+  def url_return
+    if params[:return_to].present?
+      redirect_to params[:return_to]
+    else
+      redirect_to root_path
+    end
+  end
 
   # Sets the @twets instance variable to all twets viewable by the current user
   def get_twets
@@ -52,6 +75,6 @@ class TwetsController < ApplicationController
   # a 400 'Bad Request' HTML response code.
   #
   def twet_params
-    params.require(:twet).permit(:content)
+    params.require(:twet).permit(:content, :original_twet_id,:original_user_id)
   end
 end

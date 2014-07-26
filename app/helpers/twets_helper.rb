@@ -24,6 +24,6 @@ module TwetsHelper
   # the twet passed
   #
   def retwet(twet)
-    current_user.retwets.where(:twet_id => twet.id).first
+    current_user.twets.where(:original_twet_id => twet.id).first
   end
 end

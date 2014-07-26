@@ -6,49 +6,81 @@
   <div class="panel panel-default col-md-8 text-left">
     <div class="pull-left">
       <h4>Twets</h4>
-    </div>
-    <div class="clearfix"></div>
-    <hr />
+      </div>
+
+       <div class="clearfix"></div>
+    
     <ol class="list-unstyled">
+            
+          
+      <div class="clearfix"></div>
+      <hr />
+      <ol class="list-unstyled">
       <% @twets.each do |twet| -%>
       <li>
-        <%= image_tag twet.user.gravatar_url %>
-        <%= content_tag :strong, twet.user.name %>
+        <% if twet.original_twet_id == nil %>
+            <%= image_tag twet.user.gravatar_url %>
+            <%= content_tag :strong, twet.user.name %>
         
-        <% a =link_to "@"+twet.user.username, user_path(twet.user.username) %>
-        <%= content_tag :small,a, :class => 'text-muted pad-10 text-middle' %>
-        <%= content_tag :small, twet.created_at.strftime("%b %-d"), :class => 'text-muted text-middle pull-right' %>
+            <% a =link_to "@"+twet.user.username, user_path(twet.user.username) %>
+            <%= content_tag :small,a, :class => 'text-muted pad-10 text-middle' %>
+        
+            <%= content_tag :small, twet.created_at.strftime("%b %-d"), :class => 'text-muted text-middle pull-right' %>
+            <div class="clearfix"></div>
+            <%= content_tag :p, twet.content %>
+        <% else %>
+            <%= image_tag twet.user.gravatar_url %>
+        
+            <% a =link_to "@"+twet.user.username, user_path(twet.user.username) %>
+            <% or_id =User.find(twet.original_user_id) %>
+            <%= content_tag :small,a, :class => 'text-muted pad-10 text-middle' %>
+            has retwetted
+            <br>
+
+            <%= content_tag :strong, or_id.name %>
+            <% b =link_to "@"+or_id.username, user_path(or_id.username) %>
+            <%= content_tag :small,b, :class => 'text-muted pad-10 text-middle' %>
+
+            <%= content_tag :small, twet.created_at.strftime("%b %-d"), :class => 'text-muted text-middle pull-right' %>
+            <div class="clearfix"></div>
+            <%= content_tag :p, twet.content %>
+        <% end %>
         <div class="clearfix"></div>
-        <%= content_tag :p, twet.content %>
-        <div class="clearfix"></div>
-  <% if can_retwet(twet) -%>
-  <%= content_tag :div, :class => 'pull-right' do %>
-    <%= form_for :retwet, :url => retwets_path,
+          <% if can_retwet(twet) -%>
+            <%= content_tag :div, :class => 'pull-right' do %>
+             <%= form_for :twet, :url => twets_path,
                            :method => 'POST',
                            :role => :form do |f| %>
-      <%= hidden_field_tag :return_to, request.original_url %>
-      <%= f.hidden_field :twet_id, :value => twet.id.to_s %>
-      <span class="glyphicon glyphicon-retweet smaller text-primary"></span>
-      <%= f.submit "Retwet".html_safe, :class => 'btn btn-link smaller' %>
-    <% end %>
-  <% end %>
-  <div class="clearfix"></div>
-  <% elsif has_retweted(twet) -%>
-  <%= content_tag :div, :class => 'pull-right' do %>
-    <%= form_for :retwet, :url => retwet_path(retwet(twet).id),
+               <%= hidden_field_tag :return_to, request.original_url %>
+              <%= f.hidden_field :original_twet_id, :value => twet.id %>
+
+               <%= f.hidden_field :original_user_id, :value => twet.user_id %>
+                <%= f.hidden_field :user_id, :value => current_user.id %>
+                <%= f.hidden_field :content, :value => twet.content %>
+              
+              <%= f.submit "Retwet".html_safe, :class => 'btn btn-link smaller' %>
+              <% end %>
+          <% end %>
+          <div class="clearfix"></div>
+          <% elsif has_retweted(twet) -%>
+            <%= content_tag :div, :class => 'pull-right' do %>
+            <%= form_for :twet, :url => twet_path((twet.id)),
                            :method => 'DELETE',
                            :role => :form do |f| %>
-      <%= hidden_field_tag :return_to, request.original_url %>
-      <span class="glyphicon glyphicon-retweet smaller text-success"></span>
-      <%= f.submit 'Retweted', :class => 'btn btn-link text-success smaller' %>
-    <% end %>
-  <% end %>
-  <div class="clearfix"></div>
-  <% end -%>
+            <%= hidden_field_tag :return_to, request.original_url %>
+            
+            <%= f.submit 'Retweted', :class => 'btn btn-link text-success smaller' %>
+          <% end %>
+        <% end %>
+        <div class="clearfix"></div>
+     <% end -%>
       </li>
+       
+
       <li><hr></li>
       <% end -%>
-    </ol>
+    
+       
   </div>
 </div>
 
