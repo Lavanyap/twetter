@@ -48,6 +48,20 @@ class TwetsController < ApplicationController
     url_return
   end
 
+  def show
+    if params[:id]
+    @user = User.find_by_username(params[:id])
+    if @user 
+      @twets = Twet.by_user_ids(@user.id) 
+    end
+    end
+  end
+
+def get_twets
+ 
+    @twets = current_user.all_twets
+end
+
   private
 
   def twet
@@ -62,10 +76,13 @@ class TwetsController < ApplicationController
     end
   end
 
-  # Sets the @twets instance variable to all twets viewable by the current user
   def get_twets
+ 
     @twets = current_user.all_twets
-  end
+end
+
+  # Sets the @twets instance variable to all twets viewable by the current user
+
 
   # http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
   #
